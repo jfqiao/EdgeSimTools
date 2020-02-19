@@ -1,0 +1,43 @@
+{
+  "edge_servers": [
+    {"name": "s0", "freq": 3000,"ram": 500,"storage": 500},
+    {"name": "s1", "freq": 1000,"ram": 600,"storage": 500},
+    {"name": "s2", "freq": 2000,"ram": 700,"storage": 400},
+    {"name": "s3", "freq": 5000,"ram": 300,"storage": 800},
+    {"name": "s4", "freq": 3500,"ram": 650,"storage": 550},
+    {"name": "s5", "freq": 4000,"ram": 400,"storage": 700},
+    {"name": "s6", "freq": 4000,"ram": 800,"storage": 800},
+    {"name": "s7", "freq": 5000,"ram": 700,"storage": 700},
+    {"name": "s8", "freq": 5000,"ram": 500,"storage": 700},
+    {"name": "s9", "freq": 2000,"ram": 400,"storage": 700}
+  ],
+  "edge_links": [
+    {"name": "l0", "travel_time": 4, "max_capacity": 5,"start_edge": "s0","end_edge": "s1"},
+    {"name": "l1", "travel_time": 2, "max_capacity": 9,"start_edge": "s1","end_edge": "s2"},
+    {"name": "l2", "travel_time": 9, "max_capacity": 10,"start_edge": "s0","end_edge": "s2"},
+    {"name": "l3", "travel_time": 7, "max_capacity": 9,"start_edge": "s0","end_edge": "s5"},
+    {"name": "l4", "travel_time": 3, "max_capacity": 7,"start_edge": "s2","end_edge": "s5"},
+    {"name": "l5", "travel_time": 5, "max_capacity": 15,"start_edge": "s2","end_edge": "s3"},
+    {"name": "l6", "travel_time": 3, "max_capacity": 10,"start_edge": "s2","end_edge": "s4"},
+    {"name": "l7", "travel_time": 2, "max_capacity": 8,"start_edge": "s2","end_edge": "s6"},
+    {"name": "l8", "travel_time": 5, "max_capacity": 6,"start_edge": "s3","end_edge": "s4"},
+    {"name": "l9", "travel_time": 3, "max_capacity": 7,"start_edge": "s4","end_edge": "s9"},
+    {"name": "l10","travel_time": 3, "max_capacity": 9,"start_edge": "s6","end_edge": "s9"},
+    {"name": "l11","travel_time": 5, "max_capacity": 9,"start_edge": "s6","end_edge": "s8"},
+    {"name": "l12","travel_time": 11,"max_capacity": 12,"start_edge": "s6","end_edge": "s7"},
+    {"name": "l13","travel_time": 3, "max_capacity": 15,"start_edge": "s7","end_edge": "s8"},
+    {"name": "l14","travel_time": 2, "max_capacity": 8,"start_edge": "s5","end_edge": "s6"}
+  ],
+  "edge_locs": [
+    {"name": "s0", "x": 249, "y": 60},
+    {"name": "s1", "x": 113, "y": 226},
+    {"name": "s2", "x": 319, "y": 347},
+    {"name": "s3", "x": 108, "y": 472},
+    {"name": "s4", "x": 369, "y": 512},
+    {"name": "s5", "x": 486, "y": 147},
+    {"name": "s6", "x": 618, "y": 293},
+    {"name": "s7", "x": 800, "y": 322},
+    {"name": "s8", "x": 810, "y": 92},
+    {"name": "s9", "x": 812, "y": 527}
+  ]
+}

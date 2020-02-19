@@ -1,0 +1,91 @@
+{
+  "entities":[
+    {"name": "s0", "type": "edge-server"},
+    {"name": "s1", "type": "edge-server"},
+    {"name": "s2", "type": "edge-server"},
+    {"name": "s3", "type": "edge-server"},
+    {"name": "s4", "type": "edge-server"},
+    {"name": "s5", "type": "edge-server"},
+    {"name": "A1", "type": "mobile-device", "accessEdgeServerName": "s1" },
+    {"name": "A2", "type": "mobile-device", "accessEdgeServerName": "s2"},
+    {"name": "A3", "type": "mobile-device", "accessEdgeServerName": "s3"},
+    {"name": "A4", "type": "mobile-device", "accessEdgeServerName": "s4"},
+    {"name": "A5", "type": "mobile-device", "accessEdgeServerName": "s5"}
+  ],
+  "m2m_bandwidth": [
+    [1e100, 100, 100, 80, 90, 90],
+    [24, 1e100, 90, 90, 100, 80],
+    [27, 100, 1e100, 100, 90, 80],
+    [27, 80, 90, 1e100, 90, 100],
+    [27, 80, 90, 80, 1e100, 100],
+    [27, 90, 90, 90, 100, 1e100]
+  ],
+  "m2d_bandwidth": [
+    {"to": "s1", "bandwidth": 1.34},
+    {"to": "s2", "bandwidth": 2.23},
+    {"to": "s3", "bandwidth": 2.37},
+    {"to": "s4", "bandwidth": 1.84},
+    {"to": "s5", "bandwidth": 1.92}
+  ],
+  "applications": [
+    {
+      "name": "A1",
+      "nodes": [
+        {"name": "ms1", "input_size": 1, "output_size": 5}
+      ]
+    },
+    {
+      "name": "A2",
+      "nodes": [
+        {"name": "ms1", "input_size": 1, "output_size": 5}
+      ]
+    },
+    {
+      "name": "A3",
+      "nodes": [
+        {"name": "ms1", "input_size": 1, "output_size": 5}
+      ]
+    }
+  ],
+  "processing_info": [
+    [20, 30, 30, 20, 20, 30],
+    [30, 20, 30, 20, 20, 20],
+    [50, 50, 40, 40, 40, 30]
+  ],
+  "deploy_info": [
+    [1, 0, 0, 1, 0, 1],
+    [0, 0, 1, 0, 1, 0],
+    [0, 1, 1, 0, 0, 0]
+  ],
+  "mobile_device_config": [
+    [12, 13, 14, 15, 16],
+    [12, 13, 14, 15, 16],
+    [12, 13, 14, 15, 16]
+  ],
+  "transfer_probability": [
+    [
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    [
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
+  ]
+}
