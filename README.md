@@ -2,7 +2,7 @@
 
 The architecture of EdgeSimTools:
 
-![image](https://github.com/jfqiao/EdgeSimTools/tree/master/docs/img/Arch.png)
+![image text](/docs/img/Arch.png)
 
 
 - The **Core** layer is the basement of EdgeSimTools. It provides an event driven mechanism that guides how to listen and response to the events produced by all possible entities of the system with a global clock.
@@ -19,7 +19,7 @@ The architecture of EdgeSimTools:
 
 The UI of EdgeSimTools (currently):
 
-![image](https://github.com/jfqiao/EdgeSimTools/tree/master/docs/img/UI.png)
+![image tet](/docs/img/UI.png)
 
 This tool now contains three simulators for edge computing in different scenarios.
 
