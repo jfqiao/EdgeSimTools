@@ -1,5 +1,26 @@
 # MobileEdgeSim: A set of simulators for edge computing
 
+The architecture of EdgeSimTools:
+
+![image](https://github.com/jfqiao/EdgeSimTools/tree/master/docs/img/Arch.png)
+
+
+- The **Core** layer is the basement of EdgeSimTools. It provides an event driven mechanism that guides how to listen and response to the events produced by all possible entities of the system with a global clock.
+
+- The **Server** layer is an abstract of entities related to servers. It provides interfaces for upper layers so that their resources can be allocated for different purposes.
+
+- The **Strategy** layer is a collection of related strategies (resource allocation and traffic scheduling). By implementing the interfaces declared in this layer, users can manage the behaviors of servers.
+
+- The **Network** layer describes the properties of servers and how these servers can communicate with each other.
+
+- The **Device** layer describes the properties of the devices and how will they produce service requests.
+
+- The **Application** layer describes the structure of applications (with service composition techniques) and the properties of them.
+
+The UI of EdgeSimTools (currently):
+
+![image](https://github.com/jfqiao/EdgeSimTools/tree/master/docs/img/UI.png)
+
 This tool now contains three simulators for edge computing in different scenarios.
 
 
