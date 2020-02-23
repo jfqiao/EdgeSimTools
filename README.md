@@ -19,7 +19,7 @@ The architecture of EdgeSimTools:
 
 The UI of EdgeSimTools (currently):
 
-![image tet](/docs/img/UI.png)
+![image text](/docs/img/UI.png)
 
 This tool now contains three simulators for edge computing in different scenarios.
 
