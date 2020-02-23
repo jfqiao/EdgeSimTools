@@ -1,0 +1,86 @@
+! Author: Zhengzhe Xiang;
+! Datetime: 2020-1-23 17:57:28;
+
+MODEL:
+
+DATA:
+	backlog = 0;
+	totalArrivalRate = 0;
+	V = 1;
+ENDDATA
+
+CALC:
+	hostNum = @READRM('@YOURFILE', '~');
+	edgeNum = @READRM( , '~');
+	serviceNum = @READRM( , '~');
+ENDCALC
+
+SETS:
+	h/1..hostNum/:computingPower, price;
+	e/1..edgeNum/:wirelessTransRate;
+	s/1..serviceNum/:inputSize, outputSize, workload, arrivalRateOfService, kappa;
+	hh(h, h):hostBandwidth;
+	es(e, s):arrivalRate;
+	seh(s, e, h):tau, p;
+	hs(h, s):mu, mu_w, actualArrivalRate, b;
+ENDSETS
+
+!Sub-problem 1: Computing Power Allocation;
+SUBMODEL ALLOC:
+	@FOR(hs(j, i):mu_w(j, i) = mu(j, i) / workload(i));
+	@FOR(s(i):kappa(i) = (@SUM(h(j):mu_w(j,i)) - @SUM(e(k):arrivalRate(k,i))) / hostNum);
+	@FOR(hs(j,i):b(j,i) = mu_w(j,i) - kappa(i));
+	Ct = @SUM(hs(j, i): price(j) * mu(j, i));
+	QD = V / totalArrivalRate;
+	MIN = @SUM(s(i):QD * arrivalRateOfService(i)/kappa(i)) + backlog * Ct;
+	@FOR(h(j):@SUM(s(i):mu(j, i)) <= computingPower(j));
+	Ct <= Cbar;
+	@FOR(s(i):kappa(i) > 0);
+ENDSUBMODEL
+!Sub-problem 2: Traffic Scheduling;
+SUBMODEL TRAFFIC:
+	MIN = @SUM(seh(i, j, k):p(i, j, k) * arrivalRate(j, i) * tau(i, j, k));
+	@FOR(es(j, i):@SUM(h(k):p(i, j, k)) = 1);
+	@FOR(es(k, i):@SUM(e(z):p(i, z, k) * arrivalRate(z, i)) = mu_w(k, i) - kappa(i));
+	@FOR(seh(i, j, k): p(i, j, k) <= 1.0);
+	@FOR(seh(i, j, k): p(i, j, k) >= 0.0);
+ENDSUBMODEL
+
+CALC:
+	!Read system configuration from data file;
+	wirelessTransRate = @READRM('@YOURFILE' , '~');
+	hostBandwidth = @READRM( , '~');
+	computingPower = @READRM( , '~');
+	inputSize = @READRM( , '~');
+	outputSize = @READRM( , '~');
+	workload = @READRM( , '~');
+	price = @READRM( , '~');
+	Cmax = @READRM( , '~');
+	Cbar = @READRM( , '~');
+	arrivalRate = @READRM(, '~');
+	@FOR(seh(i, j, k):tau(i, j, k) = (outputSize(i) + inputSize(i)) / wirelessTransRate(j) 
+				+ inputSize(i) / hostBandwidth(j, k) + outputSize(i) / hostBandwidth(k, j));
+	totalArrivalRate = @SUM(es(j, i): arrivalRate(j, i));
+	@FOR(s(i):arrivalRateOfService(i) = @SUM(e(j):arrivalRate(j, i)));
+	!Solve the CPA problem and write $\mu$ to file;
+	@SOLVE(ALLOC);
+	!Use the solutions of CPA as input of TS;
+	@FOR(es(k, i): mu_w(k,i) = mu_w(k,i));
+	@FOR(s(i): kappa(i) = kappa(i));
+	!Solve the TS problem and write $p$ to file;
+	@SOLVE(TRAFFIC);
+	@FOR(hs(k,i): actualArrivalRate(k,i) = @SUM(e(j): p(i,j,k)*arrivalRate(j,i)));
+	!Update the deficit queue;
+	Dt = @SUM(seh(i,j,k): p(i,j,k) * arrivalRate(j,i) * (tau(i,j,k) + 1.0 / (mu_w(k,i) - actualArrivalRate(k,i)))) / totalArrivalRate;
+	t = t + 1;
+	backlog = backlog + Ct - Cmax;
+	@IFC(backlog #lt# 0:
+		backlog = 0;
+	);
+ENDCALC
+END
+
+
+
+
+
